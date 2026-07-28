@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: mrt_top_sellers
+    description: "Tabela agregująca całkowity przychód oraz wolumen sprzedaży w rozbiciu na poszczególnych sprzedawców. Używana w głównym panelu dyrekcji."
+    columns:
+      - name: seller_id
+        description: "Klucz główny (Primary Key) identyfikujący sprzedawcę w systemie."
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_sellers')
+                field: seller_id
+      - name: total_revenues
+        description: "Całkowity przychód wygenerowany przez sprzedawcę (suma wartości sprzedanych produktów, bez kosztów dostawy)."
+
+  - name: stg_orders
+    description: "Warstwa stagingowa (fundament) dla zamówień. Ziarnistość (grain) tabeli to jedno unikalne zamówienie."
+    columns:
+      - name: order_id
+        description: "Unikalny identyfikator zamówienia (Primary Key)."
+        tests:
+          - unique
+          - not_null
+      - name: order_status
+        description: "Obecny status logistyczny zamówienia. Przepuszczane są tylko zdefiniowane z góry wartości."
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - created
+                - approved
+                - invoiced
+                - processing
+                - shipped
+                - delivered
+                - unavailable
+                - canceled
