@@ -11,8 +11,8 @@ End-to-end data engineering and business intelligence project built on the publi
 
 ## Project Structure
 
-- .
-- ├── .github/workflows/       # Automated CI/CD pipeline definitions
+- ├── .github/workflows/       # Automated CIpipeline definitions
+- ├── dags/                    # Apache Airflow DAGs for pipeline orchestration
 - ├── analyses/                # Ad-hoc SQL queries and analytical scripts
 - ├── models/                  # dbt models (Staging & Mart layers)
 - │   ├── staging/             # Cleaned and renamed raw sources
