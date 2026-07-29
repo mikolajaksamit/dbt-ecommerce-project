@@ -2,10 +2,9 @@ import os
 import pandas as pd
 from sqlalchemy import create_engine
 
-engine = create_engine('postgresql://admin:adminpassword@127.0.0.1:5433/ecommerce_db')
+engine = create_engine('postgresql://admin:adminpassword@postgres:5432/ecommerce_db')
 
-
-data_folder = '.'
+data_folder = '/opt/airflow/dags'
 
 
 for filename in os.listdir(data_folder):

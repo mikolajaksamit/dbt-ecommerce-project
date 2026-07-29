@@ -14,7 +14,7 @@ services:
       - pg_data:/var/lib/postgresql/data
 
   airflow-webserver:
-    build: ../..
+    build: .
     restart: always
     ports:
       - "8080:8080"
@@ -24,14 +24,14 @@ services:
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
       - AIRFLOW__WEBSERVER__SECRET_KEY=krytyczny_klucz_szyfrujacy_123
     volumes:
-      - ./dags:/opt/airflow/dags
-      - ./dbt_ecommerce:/opt/airflow/dbt_ecommerce
+      - .:/opt/airflow/dags
+      - ..:/opt/airflow/dbt_ecommerce
     command: webserver
     depends_on:
       - postgres
 
   airflow-scheduler:
-    build: ../..
+    build: .
     restart: always
     environment:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
@@ -39,8 +39,8 @@ services:
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
       - AIRFLOW__WEBSERVER__SECRET_KEY=krytyczny_klucz_szyfrujacy_123
     volumes:
-      - ./dags:/opt/airflow/dags
-      - ./dbt_ecommerce:/opt/airflow/dbt_ecommerce
+      - .:/opt/airflow/dags
+      - ..:/opt/airflow/dbt_ecommerce
     command: scheduler
     depends_on:
       - postgres
