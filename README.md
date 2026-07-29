@@ -6,7 +6,7 @@ End-to-end data engineering and business intelligence project built on the publi
 
 - Database / Data Warehouse: PostgreSQL (hosted locally via Docker)
 - Transformation & Modeling: dbt (data build tool) following a structured multi-layer architecture (Staging -> Marts)
-- Orchestration & Version Control: Continuous Integration Pipeline (GitHub Actions)
+- Orchestration & Automation: Apache Airflow & Continuous Integration Pipeline (GitHub Actions)
 - Business Intelligence & Dashboards: Metabase
 
 ## Project Structure

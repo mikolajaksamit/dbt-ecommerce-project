@@ -14,7 +14,7 @@ services:
       - pg_data:/var/lib/postgresql/data
 
   airflow-webserver:
-    build: ..
+    build: ../..
     restart: always
     ports:
       - "8080:8080"
@@ -31,7 +31,7 @@ services:
       - postgres
 
   airflow-scheduler:
-    build: ..
+    build: ../..
     restart: always
     environment:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
