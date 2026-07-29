@@ -1,0 +1,35 @@
+name: dbt CI Validation
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+jobs:
+  run_dbt_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dbt and Postgres adapter
+        run: pip install dbt-postgres
+
+      - name: Run dbt deps
+        run: dbt deps
+
+      - name: Run dbt test
+        run: dbt test
+        env:
+          DBT_PROFILES_DIR: .
+          DBT_HOST: ${{ secrets.DB_HOST }}
+          DBT_USER: ${{ secrets.DB_USER }}
+          DBT_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DBT_DBNAME: ${{ secrets.DB_NAME }}
