@@ -9,6 +9,8 @@ End-to-end data engineering and business intelligence project built on the publi
 - Orchestration & Automation: Apache Airflow & Continuous Integration Pipeline (GitHub Actions)
 - Business Intelligence & Dashboards: Metabase
 
+![DAG.png](Assets/DAG.png)
+
 ## Project Structure
 
 - ├── .github/workflows/       # Automated CIpipeline definitions
@@ -21,6 +23,8 @@ End-to-end data engineering and business intelligence project built on the publi
 - ├── dbt_project.yml          # Main dbt project configuration
 - └── README.md                # Project documentation
 
+![DBT docs.png](Assets/DBT%20docs.png)
+
 ## Analytics & Dashboards (Metabase)
 
 The project is integrated with Metabase to deliver key business insights through a cohesive dashboard:
@@ -29,6 +33,8 @@ The project is integrated with Metabase to deliver key business insights through
 - Revenue Trends: Macro-level growth analysis over time.
 - Product & Regional Breakdown: Revenue performance by product categories and geographical states (seller_state).
 - Customer Cohort & Retention Analysis: Tracking customer acquisition dynamics and long-term activity offsets (cohort_month & month_offset).
+
+![metabase_dashboard.png](Assets/metabase_dashboard.png)
 
 ## CI/CD Pipeline (GitHub Actions)
 
