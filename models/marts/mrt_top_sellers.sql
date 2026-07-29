@@ -4,7 +4,7 @@ select
     s.seller_id,
     s.seller_city,
     s.seller_state,
-    DATE(o.order_purchase_timestamp) as order_date, -- Rzutowanie na samą datę
+    DATE(o.order_purchase_timestamp) as order_date,
     sum(oi.price) as total_revenue,
     count(oi.order_id) as items_sold
 from {{ ref('stg_order_items') }} oi
