@@ -3,10 +3,10 @@ dbt_ecommerce:
   outputs:
     dev:
       type: postgres
-      host: 127.0.0.1
-      user: admin
-      password: adminpassword
+      host: "{{ env_var('DBT_HOST', 'localhost') }}"
+      user: "{{ env_var('DBT_USER', 'postgres') }}"
+      pass: "{{ env_var('DBT_PASSWORD', '') }}"
       port: 5433
-      dbname: ecommerce_db
+      dbname: "{{ env_var('DBT_DBNAME', 'postgres') }}"
       schema: public
       threads: 4
