@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: ecommerce_dw
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+      POSTGRES_DB: ecommerce_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  airflow-webserver:
+    build: ..
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://admin:adminpassword@postgres:5432/ecommerce_db
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__WEBSERVER__SECRET_KEY=krytyczny_klucz_szyfrujacy_123
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./dbt_ecommerce:/opt/airflow/dbt_ecommerce
+    command: webserver
+    depends_on:
+      - postgres
+
+  airflow-scheduler:
+    build: ..
+    restart: always
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://admin:adminpassword@postgres:5432/ecommerce_db
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__WEBSERVER__SECRET_KEY=krytyczny_klucz_szyfrujacy_123
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./dbt_ecommerce:/opt/airflow/dbt_ecommerce
+    command: scheduler
+    depends_on:
+      - postgres
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase_bi
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+volumes:
+  pg_data:

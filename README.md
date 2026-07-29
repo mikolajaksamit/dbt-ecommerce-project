@@ -6,7 +6,7 @@ End-to-end data engineering and business intelligence project built on the publi
 
 - Database / Data Warehouse: PostgreSQL (hosted locally via Docker)
 - Transformation & Modeling: dbt (data build tool) following a structured multi-layer architecture (Staging -> Marts)
-- Orchestration & Version Control: Git & GitHub, GitHub Actions (CI/CD)
+- Orchestration & Version Control: Continuous Integration Pipeline (GitHub Actions)
 - Business Intelligence & Dashboards: Metabase
 
 ## Project Structure
@@ -14,12 +14,9 @@ End-to-end data engineering and business intelligence project built on the publi
 - .
 - ├── .github/workflows/       # Automated CI/CD pipeline definitions
 - ├── analyses/                # Ad-hoc SQL queries and analytical scripts
-- ├── macros/                  # Reusable dbt macros
 - ├── models/                  # dbt models (Staging & Mart layers)
 - │   ├── staging/             # Cleaned and renamed raw sources
 - │   └── marts/               # Business-ready aggregates (Cohort analysis, Revenue, etc.)
-- ├── seeds/                   # Static CSV seeds
-- ├── snapshots/               # Slowly Changing Dimensions (SCD)
 - ├── tests/                   # Custom data tests and assertions
 - ├── dbt_project.yml          # Main dbt project configuration
 - └── README.md                # Project documentation
