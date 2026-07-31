@@ -22,8 +22,27 @@ jobs:
       - name: Install dbt-postgres adapter
         run: pip install dbt-postgres
 
+      - name: Create CI profiles.yml
+        run: |
+          cat <<EOF > profiles.yml
+          dbt_ecommerce:
+            target: dev
+            outputs:
+              dev:
+                type: postgres
+                host: localhost
+                user: ci_user
+                password: ci_password
+                port: 5432
+                dbname: ci_db
+                schema: public
+                threads: 1
+          EOF
+
       - name: Run dbt deps (Install packages)
         run: dbt deps
+        env:
+          DBT_PROFILES_DIR: .
 
       - name: Run dbt parse (Validate syntax, schemas & DAG references)
         run: dbt parse
