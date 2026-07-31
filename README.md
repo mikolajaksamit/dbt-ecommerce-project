@@ -1,13 +1,20 @@
-# E-commerce Analytics & Data Platform (Olist)
+ # E-commerce Analytics & Data Platform (Olist)
+
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![dbt](https://img.shields.io/badge/dbt-FF694B?style=for-the-badge&logo=dbt&logoColor=white)
+![Apache Airflow](https://img.shields.io/badge/Airflow-017CEE?style=for-the-badge&logo=apacheairflow&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
+![Metabase](https://img.shields.io/badge/Metabase-509EE3?style=for-the-badge)
 
 End-to-end data engineering and business intelligence project built on the public Brazilian E-Commerce dataset (Olist). The project covers the full lifecycle of data: from raw relational tables in a local data warehouse to transformation pipelines, automated testing, CI/CD, and final visualization dashboards.
 
 ---
 
-## Architecture & Tech Stack
+# Architecture & Tech Stack
 
 * **Database / Data Warehouse:** PostgreSQL (hosted locally via Docker)
-* **Transformation & Modeling:** dbt (data build tool) following a structured multi-layer architecture (Staging -> Marts)
+* **Transformation & Modeling:** dbt (data build tool) following a structured multi-layer architecture (Staging → Marts)
 * **Orchestration & Automation:** Apache Airflow & Continuous Integration Pipeline (GitHub Actions)
 * **Business Intelligence & Dashboards:** Metabase
 
@@ -15,7 +22,45 @@ End-to-end data engineering and business intelligence project built on the publi
 
 ---
 
-## Project Structure
+# Pipeline Overview
+
+```text
+Raw Olist Dataset
+        │
+        ▼
+ PostgreSQL (Docker)
+        │
+        ▼
+     dbt Models
+        │
+        ▼
+     dbt Tests
+        │
+        ▼
+ Apache Airflow
+        │
+        ▼
+   Metabase Dashboard
+```
+
+---
+
+# Project Features
+
+- End-to-end ELT pipeline
+- Layered dbt architecture (Staging → Marts)
+- Automated data quality validation
+- CI/CD pipeline using GitHub Actions
+- Workflow orchestration with Apache Airflow
+- Interactive business dashboard in Metabase
+- Customer Cohort Analysis
+- Revenue & Seller Analytics
+- Product Category Performance
+- Business KPI Reporting
+
+---
+
+# Project Structure
 
 ```text
 ├── .github/workflows/       # Automated CI pipeline definitions
@@ -33,7 +78,7 @@ End-to-end data engineering and business intelligence project built on the publi
 
 ---
 
-## Analytics & Dashboards (Metabase)
+# Business Intelligence Dashboard
 
 The project is integrated with Metabase to deliver key business insights through a cohesive dashboard:
 
@@ -44,23 +89,32 @@ The project is integrated with Metabase to deliver key business insights through
 
 ![Metabase Dashboard](Assets/metabase_dashboard.png)
 
-### Executive Summary & Key Business Insights
+---
 
-Based on analytical queries and dashboard metrics, several critical commercial patterns were identified across the Olist marketplace:
+## Executive Summary & Key Business Insights
 
-* **São Paulo (SP) Revenue Dominance:** Sellers from the **SP** state generated **$8.75M**, accounting for **64%** of the platform's total gross revenue (**$13.6M**). The second-largest state (PR at **$1.26M**) generated nearly 7x less revenue, highlighting heavy regional supplier concentration.
-* **Top 3 Category Concentration:** The three leading categories (`health_beauty`, `watches_gifts`, and `bed_bath_table`) brought in **over $3.5M**, representing **more than 25%** of total platform turnover. `health_beauty` is the absolute leader at **$1.26M**, demonstrating strong consumer demand for high-margin, easily shippable products.
-* **Black Friday Peak & 2018 Stabilization:** In November 2017, monthly revenue breached the **$1.0M** mark for the first time, with active customers peaking at **~15,000**. Throughout 2018, the platform entered a mature operational phase, consistently generating **$850k–$1.0M monthly** with **12,000–14,000 active customers** per month.
-* **Seller Efficiency & Order Economics:** The platform processed **99,441 orders** across **3,095 unique sellers**, maintaining an Average Order Value (**AOV**) of **$137.80**. With an average of **~$4,394 revenue per seller**, Pareto distribution indicates significant potential for targeted seller retention and loyalty programs.
+Based on analytical queries and dashboard metrics, several commercial patterns were identified across the Olist marketplace:
+
+* **São Paulo (SP) Revenue Dominance:** Sellers from the **SP** state generated **$8.75M**, accounting for **64%** of total marketplace revenue (**$13.6M**). The second-largest state (**PR**) generated only **$1.26M**, highlighting strong regional supplier concentration.
+
+* **Top Product Categories:** The categories **health_beauty**, **watches_gifts**, and **bed_bath_table** generated over **$3.5M**, representing more than **25%** of total revenue. **health_beauty** alone exceeded **$1.26M**.
+
+* **Black Friday Peak:** Monthly revenue surpassed **$1M** for the first time during **November 2017**, while active customers peaked at approximately **15,000**.
+
+* **Business Stabilization:** Throughout 2018 the platform consistently generated **$850k–$1.0M** in monthly revenue with **12k–14k active customers**.
+
+* **Seller Performance:** The marketplace processed **99,441 orders** across **3,095 sellers**, producing an **Average Order Value (AOV)** of **$137.80** and approximately **$4,394 revenue per seller**.
 
 ---
 
-## CI/CD Pipeline (GitHub Actions)
+# CI/CD Pipeline (GitHub Actions)
 
-To ensure code quality and data integrity, the repository features an automated CI/CD pipeline built with GitHub Actions.
+To ensure code quality and data integrity, the repository features an automated CI pipeline built with GitHub Actions.
 
 Whenever code is pushed or a Pull Request is opened against the `main` branch, GitHub Actions automatically:
 
 * Sets up a Python and dbt environment.
-* Configures a secure, isolated CI execution profile.
-* Runs automated dbt validation (`dbt parse` / `dbt test`) to verify SQL syntax, schema definitions, and model graph integrity before any changes are merged.
+* Configures a secure CI execution profile.
+* Runs automated validation (`dbt parse` + `dbt test`).
+* Verifies SQL syntax, schema definitions and model graph integrity before merge.
+
