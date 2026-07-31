@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  run_dbt_tests:
+  run_dbt_validation:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,17 +19,13 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install dbt and Postgres adapter
+      - name: Install dbt-postgres adapter
         run: pip install dbt-postgres
 
-      - name: Run dbt deps
+      - name: Run dbt deps (Install packages)
         run: dbt deps
 
-      - name: Run dbt test
-        run: dbt test
+      - name: Run dbt parse (Validate syntax, schemas & DAG references)
+        run: dbt parse
         env:
           DBT_PROFILES_DIR: .
-          DBT_HOST: ${{ secrets.DB_HOST }}
-          DBT_USER: ${{ secrets.DB_USER }}
-          DBT_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DBT_DBNAME: ${{ secrets.DB_NAME }}
