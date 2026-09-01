@@ -13,7 +13,7 @@ models:
               arguments:
                 to: ref('stg_sellers')
                 field: seller_id
-      - name: total_revenues
+      - name: total_revenue
         description: "Całkowity przychód wygenerowany przez sprzedawcę (suma wartości sprzedanych produktów, bez kosztów dostawy)."
 
   - name: stg_orders
